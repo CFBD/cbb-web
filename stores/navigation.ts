@@ -41,6 +41,11 @@ export const useNavigationStore = defineStore("navigation", () => {
             url: "https://pypi.org/project/cbbd/",
             target: "_blank"
           },
+          {
+            label: "TypeScript",
+            url: "https://www.npmjs.com/package/cbbd",
+            target: "_blank"
+          },
         ],
       },
       {
