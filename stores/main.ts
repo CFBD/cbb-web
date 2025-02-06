@@ -111,7 +111,7 @@ export const useMainStore = defineStore("main", () => {
       method: 'GET',
       baseURL: config.public.apiBaseUrl,
     });
-    teams.value = data.filter((t) => t.conference);
+    teams.value = data.filter((t) => t.conference).sort((a, b) => a.school.localeCompare(b.school));
   }
 
   async function getConferences() {
@@ -119,7 +119,7 @@ export const useMainStore = defineStore("main", () => {
       baseURL: config.public.apiBaseUrl,
       method: 'GET',
     });
-    conferences.value = data;
+    conferences.value = data.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   // async function getPlayTypes() {

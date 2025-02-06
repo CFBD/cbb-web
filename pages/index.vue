@@ -20,7 +20,7 @@
           <template #title>Welcome to CollegeBasketballData.com!</template>
           <template #content>
               <p class="m-0">
-                  This site is an offshoot of the CollegeFootballData.com and is in beta for the 2024-2025 season.
+                  This site is an offshoot of CollegeFootballData.com and is in beta for the 2024-2025 season.
                   It currently features a public API (in limited preview for Patreon subscribers for as little as $1/month) and an official Python package.
                   If you already have a CFBD API key, you can use it to access the CollegeBasketballData API.
                   Click on the 'Data' tab to query and export data to CSV format. More features and data are constantly being added. Stay tuned for future updates!
