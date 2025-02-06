@@ -5,6 +5,15 @@
 
   const mainStore = useMainStore();
   await mainStore.hyrdate();
+
+  useHead({
+    link: [
+      {
+        rel: "icon",
+        href: "https://cdn.collegefootballdata.com/cbbd_favicon.ico",
+      }
+    ]
+  })
 </script>
 
 <template>

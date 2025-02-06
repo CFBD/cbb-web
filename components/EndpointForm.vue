@@ -24,16 +24,13 @@
                     <!-- <Dropdown v-else-if="qp.name === 'playType'" :id="`input-${qp.name}`" :options="mainStore.playTypes"
                         v-model="apiStore.queryParams[qp.name]" option-label="text" option-value="id"
                         :placeholder="qp.description" filter show-clear class="w-10"></Dropdown>
-                    <Dropdown v-else-if="qp.name === 'statTypeId'" :id="`input-${qp.name}`"
-                        :options="mainStore.playStatTypes" v-model="apiStore.queryParams[qp.name]" option-label="name"
-                        option-value="id" :placeholder="qp.description" filter show-clear class="w-10"></Dropdown>
                     <PlayerSearch v-else-if="qp.name == 'athleteId' || qp.name == 'playerId'" :placeholder="qp.description //@ts-ignore
                         " v-model="apiStore.queryParams[qp.name]" show-team>
                     </PlayerSearch> -->
                     <DatePicker v-else-if="qp.schema.format === 'date-time'" :id="`input=${qp.name}`"
                         v-model="apiStore.queryParams[qp.name]"></DatePicker>
-                    <Checkbox v-else-if="qp.type === 'boolean'" :id="`input-${qp.name}`"
-                        v-model="apiStore.queryParams[qp.name]" :binary="true">
+                    <Checkbox v-else-if="qp.schema.type === 'boolean'" :id="`input-${qp.name}`"
+                        v-model="apiStore.queryParams[qp.name]" :binary="true" class='mt-2'>
                     </Checkbox>
                     <Dropdown v-else-if="qp.name === 'seasonType'" :id="`input-${qp.name}`"
                         :options="['regular', 'postseason']" v-model="apiStore.queryParams[qp.name]"
@@ -55,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-import PlayerSearch from './PlayerSearch.vue';
 import { useApiStore } from '~/stores/api';
 import { useMainStore } from '~/stores/main';
 import { capitalize } from '~/utils';
