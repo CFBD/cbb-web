@@ -24,7 +24,10 @@ export function flattenData(key: string | undefined, data: any) {
             for (const game of data) {
                 for (const line of game.lines) {
                     flattened.push({
-                        id: game.id,
+                        gameId: game.gameId,
+                        season: game.season,
+                        seasonType: game.seasonType,
+                        startDate: game.startDate,
                         homeTeam: game.homeTeam,
                         homeScore: game.homeScore,
                         awayTeam: game.awayTeam,
@@ -32,7 +35,6 @@ export function flattenData(key: string | undefined, data: any) {
                         lineProvider: line.provider,
                         overUnder: line.overUnder,
                         spread: line.spread,
-                        formattedSpread: line.formattedSpread,
                         openingSpread: line.spreadOpen,
                         openingOverUnder: line.overUnderOpen,
                         homeMoneyline: line.homeMoneyline,
