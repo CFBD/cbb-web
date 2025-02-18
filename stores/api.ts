@@ -139,6 +139,7 @@ export const useApiStore = defineStore("api", () => {
     selectedEndpoint.value = endpoints.value.find((e) => e.key === `/${path}`);
 
     if (selectedEndpoint.value) {
+      queryParams.value = {};
       collapseSelections.value = true;
 
       for (const qp of selectedEndpoint.value.path.get.parameters) {

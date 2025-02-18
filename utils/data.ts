@@ -6,6 +6,35 @@ export function flattenData(key: string | undefined, data: any) {
     let flattened = [];
 
     switch (key) {
+        case '/teams/roster':
+          for (const team of data) {
+            flattened.push(...team.players.map((p: DataObject) => ({
+              teamId: team.teamId,
+              teamSourceId: team.teamSourceId,
+              team: team.team,
+              conference: team.conference,
+              season: team.season,
+              id: p.id,
+              sourceid: p.sourceId,
+              name: p.name,
+              firstName: p.firstName,
+              lastName: p.lastName,
+              jersey: p.jersey,
+              position: p.position,
+              height: p.height,
+              weight: p.weight,
+              // @ts-ignore
+              hometownCity: p.hometown?.city || '',
+              // @ts-ignore
+              hometownState: p.hometown?.state || '',
+              // @ts-ignore
+              hometownCountry: p.hometown?.country || '',
+              dateOfBirth: p.dateOfBirth,
+              startSeason: p.startSeason,
+              endSeason: p.endSeason,
+            })));
+          }
+          break;
         case '/coaches':
             for (const coach of data) {
                 flattened.push(...coach.seasons.map((s: DataObject) => {

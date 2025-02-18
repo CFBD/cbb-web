@@ -2,25 +2,6 @@ import { ref } from "vue";
 import type { Ref } from "vue";
 import { defineStore } from "pinia";
 
-interface Team {
-  id: number;
-  sourceId: string
-  school: string;
-  mascot: string;
-  abbreviation: string;
-  conference: string;
-  primaryColor: string;
-  secondaryColor: string;
-}
-
-interface Conference {
-  id: number;
-  sourceId: string;
-  name: string;
-  shortName: string;
-  abbreviation: string;
-}
-
 // interface PlayType {
 //   id: number;
 //   text: string;

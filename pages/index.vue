@@ -2,12 +2,28 @@
   import { useMainStore } from "~/stores/main";
 
   const mainStore = useMainStore();
+  const config = useRuntimeConfig();
 
-  // onMounted(() => {
-  //   let twitterScript = document.createElement("script");
-  //   twitterScript.setAttribute("src", "https://platform.twitter.com/widgets.js");
-  //   document.head.appendChild(twitterScript);
-  // });
+  const teamRatings = await $fetch<TeamRatings[]>("/ratings/adjusted", {
+    method: "GET",
+    baseURL: config.public.apiBaseUrl,
+    params: {
+      season: 2025,
+    }
+  });
+
+  const teamStats = await $fetch<TeamSeasonStats[]>("/stats/team/season", {
+    method: "GET",
+    baseURL: config.public.apiBaseUrl,
+    params: {
+      season: 2025,
+    }
+  });
+
+  const teamInfo = teamRatings.map((tr) => ({
+    ...tr,
+    stats: teamStats.find((ts) => ts.teamId  === tr.teamId),
+  }))
 </script>
 
 <template>
@@ -16,16 +32,50 @@
       <Message severity="info" :closable="false" class="mb-4">
         A College Basketball API is now available for all Patreon subscribers! Use your same CFBD API key to access. General availability to be announced at a later date. <a href="https://api.collegebasketballdata.com">Check it out!</a>
       </Message>
-        <Card>
-          <template #title>Welcome to CollegeBasketballData.com!</template>
-          <template #content>
-              <p class="m-0">
-                  This site is an offshoot of CollegeFootballData.com and is in beta for the 2024-2025 season.
-                  It currently features a public API (in limited preview for Patreon subscribers for as little as $1/month) and an official Python package.
-                  If you already have a CFBD API key, you can use it to access the CollegeBasketballData API.
-                  Click on the 'Data' tab to query and export data to CSV format. More features and data are constantly being added. Stay tuned for future updates!
-              </p>
-          </template>
+      <Card class='mb-4'>
+        <template #title>Welcome to CollegeBasketballData.com!</template>
+        <template #content>
+            <p class="m-0">
+                This site is an offshoot of CollegeFootballData.com and is in beta for the 2024-2025 season.
+                It currently features a public API (in limited preview for Patreon subscribers for as little as $1/month) and an official Python package.
+                If you already have a CFBD API key, you can use it to access the CollegeBasketballData API.
+                Click on the 'Data' tab to query and export data to CSV format. More features and data are constantly being added. Stay tuned for future updates!
+            </p>
+        </template>
+      </Card>
+      <Card>
+        <template #title>Adjusted Team Ratings</template>
+        <template #content>
+          <DataTable :value="teamInfo" sortField="netRating" :sortOrder="-1" stripedRows selectionMode='single' size='small'
+            :paginator="true" :rows="50"
+            paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+            currentPageReportTemplate="{first} to {last} of {totalRecords}">
+            <Column field="team" header="Team">
+              <template #body="slotProps">
+                <div class='team-name-logo-cell'>
+                  <img :src="`https://cdn.collegefootballdata.com/cbb-logos/32/${mainStore.teams.find((t: Team) => t.id == slotProps.data.teamId)?.sourceId}.png`" />
+                  <span>{{ slotProps.data.team }} ({{ slotProps.data.stats?.wins ?? '' }}-{{ slotProps.data.stats?.losses ?? '' }})</span>
+                </div>
+              </template>
+            </Column>
+            <Column field="conference" header="Conference"></Column>
+            <Column field="offensiveRating" header="AdjO" sortable>
+              <template #body="slotProps">
+                <span>{{ slotProps.data.offensiveRating }}</span><sup>{{ slotProps.data.rankings.offense }}</sup>
+              </template>
+            </Column>
+            <Column field="defensiveRating" header="AdjD" sortable>
+              <template #body="slotProps">
+                <span>{{ slotProps.data.defensiveRating }}</span><sup>{{ slotProps.data.rankings.defense }}</sup>
+              </template>
+            </Column>
+            <Column field="netRating" header="AdjNet" sortable>
+              <template #body="slotProps">
+                <span>{{ slotProps.data.netRating }}</span><sup>{{ slotProps.data.rankings.net }}</sup>
+              </template>
+            </Column>
+          </DataTable>
+        </template>
       </Card>
     </main>
     <div class="col-12 md:col-3 text-center">
@@ -107,6 +157,15 @@
 </template>
 
 <style scoped>
+  .team-name-logo-cell {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+
   .home-content {
     width: 100%;
   }
