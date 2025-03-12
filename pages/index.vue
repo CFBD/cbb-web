@@ -30,17 +30,29 @@
   <div class="grid home-content mt-3 pl-3">
     <main class="col-12 md:col-9">
       <Message severity="info" :closable="false" class="mb-4">
-        A College Basketball API is now available for all Patreon subscribers! Use your same CFBD API key to access. General availability to be announced at a later date. <a href="https://api.collegebasketballdata.com">Check it out!</a>
+        A College Basketball API is now in general availability! Use your same CFBD API key to access. <a href="https://api.collegebasketballdata.com">Check it out!</a>
       </Message>
       <Card class='mb-4'>
         <template #title>Welcome to CollegeBasketballData.com!</template>
         <template #content>
             <p class="m-0">
                 This site is an offshoot of CollegeFootballData.com and is in beta for the 2024-2025 season.
-                It currently features a public API (in limited preview for Patreon subscribers for as little as $1/month) and an official Python package.
+                It currently features a public API and an official Python package.
                 If you already have a CFBD API key, you can use it to access the CollegeBasketballData API.
                 Click on the 'Data' tab to query and export data to CSV format. More features and data are constantly being added. Stay tuned for future updates!
             </p>
+              <p class="m-0 mt-2">
+                This is a public API that comes from very humble beginnings, but is only made possible due the the support of Patreon subscribers.
+                As such, monthly requests are alotted by Patreon level. Patreon registration is NOT required for the free tier. Monthly call limits are as follows:
+              </p>
+                <ul>
+                  <li>Free Tier: 1000 monthly calls</li>
+                  <li>Student/Academic Tier: 3000 monthly calls (register with an .edu email address)</li>
+                  <li>Tier 1 ($1/mo): 5000 monthly calls</li>
+                  <li>Tier 2 ($5/mo): 30,000 monthly calls</li>
+                  <li>Tier 3 ($10/mo): 75,000 monthly calls (+ unlimited GraphQL requests)</li>
+                </ul>
+                If you need more than 75,000 monthly calls, please contact me directly. Monthly calls are shared across the football and basketball APIs.
         </template>
       </Card>
       <Card>
