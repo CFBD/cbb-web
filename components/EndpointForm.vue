@@ -2,11 +2,11 @@
 
 <template>
     <Card class="m-3 pt-3">
-        <template #header>
-            {{ apiStore.selectedEndpoint?.summary }}
+        <template #title>
+            {{ apiStore.selectedEndpoint?.description }}
         </template>
         <template #content>
-            <div class="grid">
+            <div class="grid mt-2">
                 <div class="col-12 md:col-6 lg:col-3" v-for="qp in apiStore.selectedEndpoint?.path.get.parameters"
                     :key="qp.name">
                     <div>
