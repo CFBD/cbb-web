@@ -36,6 +36,7 @@
   <slot />
   <footer class="text-center p-2">
     <hr />
-    Copyright &copy; {{ currentYear }} CollegeBasketballData.com
+    © {{ currentYear }} CollegeBasketballData.com. All rights reserved.<br />A
+    product of Rad Sports Analytics LLC.
   </footer>
 </template>
